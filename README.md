@@ -14,7 +14,7 @@ Clone the repository and navigate into the project folder:
 
 ```bash
 git clone <repo-url>
-cd BlazorUtilityCollection
+cd Blazor-Utility-Collection
 ```
   
 ## Run the Application
