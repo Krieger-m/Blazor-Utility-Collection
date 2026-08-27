@@ -1,0 +1,63 @@
+@page "/calc";
+@rendermode InteractiveServer
+@using System.Data
+
+<PageTitle>Calculator</PageTitle>
+
+<h1>Calculator</h1>
+
+<div class="calculator">
+    <input class="display" readonly value="@display" />
+    <div class="buttons">
+        @foreach (var btn in buttons)
+        {
+            <button class="btn btn-secondary calc-btn" @onclick="() => Press(btn)">
+                @btn
+            </button>
+        }
+    </div>
+</div>
+
+
+@code {
+    private string display = "";
+    private readonly string[] buttons =
+   {
+        "7","8","9","/",
+        "4","5","6","*",
+        "1","2","3","-",
+        "0","C","=","+"
+    };
+
+    private void Press(string key)
+    {
+        switch (key)
+        {
+            case "C":
+                display = "";
+                break;
+
+            case "=":
+                TryCalculate();
+                break;
+
+            default:
+                display += key;
+                break;
+        }
+    }
+
+    private void TryCalculate()
+    {
+        try
+        {
+            // Very simple expression evaluator
+            var result = new DataTable().Compute(display, null);
+            display = result?.ToString() ?? "";
+        }
+        catch
+        {
+            display = "ERR";
+        }
+    }
+}
